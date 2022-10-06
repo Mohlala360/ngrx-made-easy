@@ -1,8 +1,15 @@
 <div>
-  <input #foodName type="text" />
-  <button (click)="onFoodCreate(foodName)">Add</button>
+  <div>
+    <input placeholder="color" #foodName id="foodName" type="text" />
+  </div>
+  <div>
+    <textarea placeholder="description" id="foodDescription" #foodDescription type="text"></textarea>
+  </div>
+  <button *ngIf="!selectedFood" (click)="onFoodCreate(foodName,foodDescription)">Add</button>
+  <button *ngIf="selectedFood" (click)="onFoodUpdate(selectedFood,foodName,foodDescription)">Update</button>
 </div>
 <ul>
-  <li *ngFor="let food of getFoods() | async">{{ food.name }}  <button (click)="onFoodRemove(food)">[X]</button></li>
+  <li *ngFor="let food of getFoods() | async">{{ food.id }} - {{ food.name }} : {{ food.description }}
+    <button (click)="onclick(food)">[/]</button> <button (click)="onFoodRemove(food)">[X]</button>
+  </li>
 </ul>
-
