@@ -1,16 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/index';
-
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/index";
 
 @Injectable()
 export class ApiService {
-  constructor() {
-
-  }
+  constructor() {}
 
   run(foodName: string) {
-    return Observable.create(observer => {
-      observer.next(foodName ? foodName.toUpperCase() : 'NO FOOD :(');
+    return Observable.create((observer) => {
+      observer.next(foodName ? foodName.toUpperCase() : "NO FOOD :(");
+    });
+  }
+
+  update(foodName: string) { 
+    return Observable.create((observer) => {
+      observer.next(foodName ? foodName.toUpperCase() : "NO FOOD :(");
     });
   }
 }

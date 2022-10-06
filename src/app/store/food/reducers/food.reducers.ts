@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
-import {FoodAction, FoodActionTypes} from "../actions/food.actions";
-import {Food} from "../../../models/food.model";
-import {State, initialState} from '../state/food.state';
+import { FoodAction, FoodActionTypes } from "../actions/food.actions";
+import { Food } from "../../../models/food.model";
+import { State, initialState } from "../state/food.state";
 
 export function reducer(state = initialState, action: FoodAction) {
   switch (action.type) {
@@ -10,26 +10,36 @@ export function reducer(state = initialState, action: FoodAction) {
       const newFood = action.payload;
       return {
         ...state,
-        foods: [...state.foods, Object.assign({}, newFood, {id: _.uniqueId()})]
+        foods: [
+          ...state.foods,
+          Object.assign({}, newFood, { id: _.uniqueId() }),
+        ],
       };
     }
     case FoodActionTypes.CREATE_FOOD_SUCCESS: {
       const updatedFoodName = action.payload.toString();
-      const updatedFoods: Food[] = state.foods.map(food => {
-        return food.name.toUpperCase() === updatedFoodName ?
-          Object.assign({}, food, {name: updatedFoodName}) :
-          Object.assign({}, food);
+      const updatedFoods: Food[] = state.foods.map((food) => {
+        return food.name.toUpperCase() === updatedFoodName
+          ? Object.assign({}, food, { name: updatedFoodName })
+          : Object.assign({}, food);
       });
       return {
         ...state,
-        foods: [...updatedFoods]
+        foods: [...updatedFoods],
       };
     }
     case FoodActionTypes.REMOVE_FOOD: {
       const foodId = action.payload;
       return {
         ...state,
-        foods: [...state.foods.filter(f => f.id != foodId)]
+        foods: [...state.foods.filter((f) => f.id != foodId)],
+      };
+    }
+    case FoodActionTypes.UPDATE_FOOD: {
+      var updateFood = action.payload as any;
+      const k = updateFood.id;
+      return {
+        foods: [...state.foods],
       };
     }
     default: {
